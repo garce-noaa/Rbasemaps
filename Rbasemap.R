@@ -70,7 +70,6 @@ labely <- c("90°S","80°S","70°S","60°S","50°S","40°S","30°S","20°S","10�
 "10°N","20°N","30°N","40°N","50°N","60°N","70°N","80°N","90°N")
 
 vec <- setNames(rep("", 7), c("long", "lat", "order", "hole", "piece", "group", "id"))
-bind_rows(vec)[0, ]
 
 ###################################################################################################################
 #####  =>  Define map boundaries and create bounding box; limits defined as(Xmin, Xmax, Ymin, Ymax)
