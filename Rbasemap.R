@@ -19,7 +19,6 @@ library(rjson)
 library(broom)
 library(raster)
 
-
 ###################################################################################################################
 ##############	BASEMAP  /  EEZ SHP  /  MAP BOUNDARIES      #######################################################
 ###################################################################################################################
@@ -63,12 +62,12 @@ worldmap = maps::map(wrap=c(0,360), plot=FALSE, fill=TRUE)
 
 ##### Create labels for plot scale
 
-labelx <- c("10캞","20캞","30캞","40캞","50캞","60캞","70캞","80캞","90캞","100캞","110캞","120캞",
-"130캞","140캞","150캞","160캞","170캞","180�","170캷","160캷","150캷","140캷","130캷","120캷","110캷",
-"100캷","90캷","80캷","70캷","60캷","50캷","40캷","30캷","20캷","10캷","0")
+labelx <- c("10째E","20째E","30째E","40째E","50째E","60째E","70째E","80째E","90째E","100째E","110째E","120째E",
+"130째E","140째E","150째E","160째E","170째E","180째","170째W","160째W","150째W","140째W","130째W","120째W","110째W",
+"100째W","90째W","80째W","70째W","60째W","50째W","40째W","30째W","20째W","10째W","0")
 
-labely <- c("90캳","80캳","70캳","60캳","50캳","40캳","30캳","20캳","10캳","0",
-"10캮","20캮","30캮","40캮","50캮","60캮","70캮","80캮","90캮")
+labely <- c("90째S","80째S","70째S","60째S","50째S","40째S","30째S","20째S","10째S","0",
+"10째N","20째N","30째N","40째N","50째N","60째N","70째N","80째N","90째N")
 
 vec <- setNames(rep("", 7), c("long", "lat", "order", "hole", "piece", "group", "id"))
 bind_rows(vec)[0, ]
@@ -102,22 +101,22 @@ ggplot() +
 
 ##### Define the coordinate system for the map plot
 
-coord_cartesian(clip="on",xlim = c(bbox@bbox[1], bbox@bbox[3]), ylim = c(bbox@bbox[2], bbox@bbox[4]))+
+coord_cartesian(clip="on",xlim = c(bbox@bbox[1], bbox@bbox[3]), ylim = c(bbox@bbox[2], bbox@bbox[4])) +
 
 ##### Shapefile section, features can be enabled/disabled by commenting indivudual lines
 ##### The "fill" parameter controls the fill color for each polygon, and "alpha" modifies polygon transparency
 ##### The "color" parameter controls the polygon outline color, and "size" modifies the line width
 
 geom_polygon(data = useezmap, aes(x = long, y = lat), fill="steelblue4",  color="steelblue4", alpha=0.1, size=0.7) +
-geom_polygon(data = caneezmap, aes(x = long, y = lat), fill="darkolivegreen", color="darkolivegreen", alpha=0.1, size=0.7)  +
+geom_polygon(data = caneezmap, aes(x = long, y = lat), fill="darkolivegreen", color="darkolivegreen", alpha=0.1, size=0.7) +
 geom_polygon(data = iattcmap, aes(x = long, y = lat), fill="steelblue4",  color="steelblue4", alpha=0.1, size=0.7) +
-geom_polygon(data = wcpfcmap, aes(x = long, y = lat),  fill="darkolivegreen",  color="darkolivegreen", alpha=0.1, size=0.7)  +
-geom_polygon(data = iscmap, aes(x = long, y = lat), fill="yellow",  color="yellow", alpha=0.1, size=0.7)  +
+geom_polygon(data = wcpfcmap, aes(x = long, y = lat),  fill="darkolivegreen",  color="darkolivegreen", alpha=0.1, size=0.7) +
+geom_polygon(data = iscmap, aes(x = long, y = lat), fill="yellow",  color="yellow", alpha=0.1, size=0.7) +
 
 ##### Map gridlines, set for 5degree squares.
 
-geom_hline(yintercept=seq(-90,90, by=5), color = "grey80", size=0.3, linetype = "dashed", alpha=0.6)+ 
-geom_vline(xintercept=seq(0,360, by= 5), color = "grey80", size=0.3,linetype = "dashed", alpha=0.6)+
+geom_hline(yintercept=seq(-90,90, by=5), color = "grey80", size=0.3, linetype = "dashed", alpha=0.6) + 
+geom_vline(xintercept=seq(0,360, by= 5), color = "grey80", size=0.3,linetype = "dashed", alpha=0.6) +
 
 ##### World basemap polygon feature, can be modified using the same procedures for the shapefiles above
 
@@ -130,6 +129,6 @@ xlab("Longitude") + ylab("Latitude") +
 scale_y_continuous(limits = c(-90,90), breaks=seq(-90, 90,10), labels=labely,expand=c(0,0)) + 
 scale_x_continuous(limits = c(10,360), breaks=seq(10,360,10), labels=labelx,expand=c(0,0)) +
 theme(axis.title.x = element_blank(),axis.title.y = element_blank(), panel.background = element_rect(fill = "aliceblue"),panel.grid=element_blank(),
-panel.border = element_rect(colour = "black", fill=NA,size=2), plot.background = element_rect(fill = "white"), plot.margin = margin(2, 16, 8, 2))+
+panel.border = element_rect(colour = "black", fill=NA,size=2), plot.background = element_rect(fill = "white"), plot.margin = margin(2, 16, 8, 2)) +
 ggtitle("Map Title", subtitle="Map Subtitle")
 
